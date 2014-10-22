@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dojo</title>
+</head>
+<body>
+	
+	<div class="container">
+    	<h1>First Dojo JS Bluesoft</h1>
+      
+		<form id="formBuscaProduto" action="buscaProduto.action">
+			<label for="selectOpcoes">Opções</label>
+
+			<select name="opcoes" id="selectOpcoes">
+			  <option value="1" data-input="codigoInterno">Codigo Interno</option>
+			  <option value="2" data-input="descricao">Descricao</option>
+			  <option value="3" data-input="gtin">GTIN</option>
+			</select>
+
+			<input type="number" name="codigoInterno" placeholder="Codigo Interno" >
+			<input type="text" name="descricao" placeholder="Descricao">
+			<input type="text" name="gtin" placeholder="GTIN">
+
+			<button id="btnSalvar">Salvar</button>
+		</form>
+
+		<form id="formBuscaProdutoCaixa" action="buscaProdutoCaixa.action">
+			<label for="selectOpcoes">Opções</label>
+
+			<select name="opcoes" id="selectOpcoes">
+			  <option value="1" data-input="codigoInterno">Codigo Interno</option>
+			  <option value="2" data-input="descricao">Descricao</option>
+			  <option value="3" data-input="gtin">GTIN</option>
+			</select>
+
+			<input type="number" name="codigoInterno" placeholder="Codigo Interno" >
+			<input type="text" name="descricao" placeholder="Descricao">
+			<input type="text" name="gtin" placeholder="GTIN">
+
+			<button id="btnSalvar">Salvar</button>
+		</form>
+    </div>
+
+    <script>
+        var dependencia = {
+          dep1: '${boolean}', //atributo vindo do controller
+          dep2: '${boolean}' //atributo vindo do controller
+        } 
+    </script>
+
+    <script src="main.js"></script>
+</body>
+</html>
