@@ -1,0 +1,28 @@
+{
+  "name": "shooter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/divecch/shooter"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/divecch/shooter/issues"
+  },
+  "homepage": "https://github.com/divecch/shooter",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "karma": "^0.12.24",
+    "karma-jasmine": "^0.2.3",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-requirejs": "^0.2.2",
+    "requirejs": "^2.1.15"
+  }
+}
