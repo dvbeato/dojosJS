@@ -3,6 +3,7 @@ define('scene', [], function() {
 	var elements = [];	
 	var enemies = [];
 	var bullets = [];
+	var player = null;
 
 	var WIDTH = 800
 	   ,HEIGHT = 480;
@@ -19,6 +20,23 @@ define('scene', [], function() {
 		bullets.forEach(function(bullet) {
         	bullet.draw(context);
         });        
+
+        context.font = "30px Arial";
+		// context.fillText('Scenes : ' + scene.getElements().length ,10,30);
+		// context.fillText('Bullets : ' + scene.getBullets().length ,170,30); 
+
+		var positionStart = 20;
+
+		for(var i = 0; i < player.life; i ++) {
+			var positionX = 40 * i;
+			var positionY = 20;
+			var radius = 15;
+
+			context.fillStyle = "#F00";
+			context.beginPath();
+			context.arc(positionStart + positionX, positionY, radius, 0, 2 * Math.PI);	
+			context.fill();
+		}
 	}
 
 	function update(){
@@ -52,8 +70,14 @@ define('scene', [], function() {
 		})		
 	}
 
+	function addElement(element) { elements.push(element) }
+
 	return {
-		addElement:function(element) { elements.push(element) },
+		addPlayer:function(element) {
+			player = element;
+			addElement(element); 
+		},
+		addElement: addElement,
 		addEnemy:function(enemy) { enemies.push(enemy) },
 		addBullet: function(bullet) { bullets.push(bullet) },
 		getElements:function() { return elements; },

@@ -1,6 +1,5 @@
 define('shooter', ['resources', 'controle', 'player', 'scene'], function(resources, controle, player, scene) {
 
-
 	var bgLayer1  = {
 		live:true,
 		x:0,
@@ -39,7 +38,7 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 	scene.addElement(bgLayer2);
 
 
-	scene.addElement(player);
+	scene.addPlayer(player);
 
 	var WIDTH = 800;
 	var HEIGHT = 480;
@@ -58,14 +57,13 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 		this.live = true;
 		this.height = 60;
 		this.width = 46;
+		this.speed = 5;
 		this.draw = function(context) {
-			// drawColision("red", this.x, this.y, this.width, this.height);			
+			drawColision("red", this.x, this.y, this.width, this.height);			
 			context.drawImage(resources.images.enemy,this.x,this.y);
-
 		}
-
 		this.update = function() {
-			this.x -= 5;
+			this.x -= this.speed;
 			if (this.x < 0 ) {
 				this.live = false;
 			}
@@ -96,25 +94,27 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 		context.drawImage(resources.images.mainbackground, 0,0);
 
         scene.draw(context);
-
-        context.font = "30px Arial";
-		context.fillText('Scenes : ' + scene.getElements().length ,10,30) 
-		context.fillText('Bullets : ' + scene.getBullets().length ,170,30) 
 	}
 
-	function detectColision(bullet, enemy) {
-		return (bullet.x + bullet.width > enemy.x) &&
-			   (enemy.y + enemy.height > bullet.y) &&
-			   (enemy.y < bullet.y + bullet.height) ;
+	function detectColision(actor, coactor) {
+		return (actor.x + actor.width > coactor.x) &&
+			   (coactor.y + coactor.height > actor.y) &&
+			   (coactor.y < actor.y + actor.height) ;
 	}
 
 	function update() {
 
-
 		player.move(controle);
 
 		scene.getEnemies().forEach(function(enemy) {
-			enemy.update();
+			
+			if(detectColision(player, enemy)) {
+				player.life -= 1;
+				enemy.live = false;
+				if (player.life <= 0) {
+					location.reload();	
+				}
+			}
 
 			scene.getBullets().forEach(function(bullet) {
 				if(detectColision(bullet,enemy)) {

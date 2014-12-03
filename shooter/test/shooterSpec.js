@@ -1,9 +1,10 @@
-define(['scripts/shooter'], function(shooter) {
+define(['bullet'], function(bullet) {
 
-	describe('Shooter Game Test', function() {
+	describe('Bullet Module Test', function() {
 
-		it('should be true', function() {
-			expect(true).toBe(true);
+		it('should create new bullet', function() {
+			var newBullet = bullet.create;
+			expect(newBullet).toBeDefined();
 		})
 
 	});
