@@ -59,7 +59,7 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 		this.width = 46;
 		this.speed = 5;
 		this.draw = function(context) {
-			drawColision("red", this.x, this.y, this.width, this.height);			
+			// drawColision("red", this.x, this.y, this.width, this.height);			
 			context.drawImage(resources.images.enemy,this.x,this.y);
 		}
 		this.update = function() {

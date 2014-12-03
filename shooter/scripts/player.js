@@ -6,7 +6,7 @@ define('player', ['resources', 'scene', 'bullet'], function(resources, scene, bu
 		size:20,
 		speed:5,
 		color:'#000',
-		life: 8,
+		life: 3,
 		height: 69,
 		width: 116,
 		shotInterval: 300,
