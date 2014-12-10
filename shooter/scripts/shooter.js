@@ -51,6 +51,7 @@ define('shooter', ['resources', 'controle', 'player', 'scene', 'enemy'], functio
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
 
+
 	function drawColision(color, x, y, width, height) {
 		context.beginPath();
 		context.lineWidth="3";
