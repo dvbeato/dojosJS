@@ -1,5 +1,8 @@
-define('shooter', ['resources', 'controle', 'player', 'scene'], function(resources, controle, player, scene) {
+define('shooter', ['resources', 'controle', 'player', 'scene', 'enemy'], function(resources, controle, player, scene, enemy) {
 
+	var WIDTH = 800;
+	var HEIGHT = 480;
+	var FPS = 1000/60;
 	var bgLayer1  = {
 		live:true,
 		x:0,
@@ -9,11 +12,10 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 			if ( this.x <= -800 ){
 				this.x = 0;	
 			}
-
 		},
 		draw: function() {
-			context.drawImage(resources.images.bgLayer1, this.x,0);
-			context.drawImage(resources.images.bgLayer1, this.x + 800 ,0);		
+			context.drawImage(resources.images.bgLayer1, this.x,0, WIDTH, HEIGHT);
+			context.drawImage(resources.images.bgLayer1, this.x + 800 ,0, WIDTH, HEIGHT);		
 		}
 	}
 
@@ -29,8 +31,8 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 
 		},
 		draw: function() {
-			context.drawImage(resources.images.bgLayer1, this.x,0);
-			context.drawImage(resources.images.bgLayer1, this.x + 800 ,0);		
+			context.drawImage(resources.images.bgLayer2, this.x, 0, WIDTH, HEIGHT);
+			context.drawImage(resources.images.bgLayer2, this.x + 800 ,0, WIDTH, HEIGHT);		
 		}	
 	}
 
@@ -40,8 +42,6 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 
 	scene.addPlayer(player);
 
-	var WIDTH = 800;
-	var HEIGHT = 480;
 
 	var context, canvas;
 
@@ -50,25 +50,6 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
-
-	function Enemy() {
-		this.x = WIDTH;
-		this.y = (Math.random() * HEIGHT)+ 1;
-		this.live = true;
-		this.height = 60;
-		this.width = 46;
-		this.speed = 5;
-		this.draw = function(context) {
-			drawColision("red", this.x, this.y, this.width, this.height);			
-			context.drawImage(resources.images.enemy,this.x,this.y);
-		}
-		this.update = function() {
-			this.x -= this.speed;
-			if (this.x < 0 ) {
-				this.live = false;
-			}
-		}
-	}
 
 	function drawColision(color, x, y, width, height) {
 		context.beginPath();
@@ -81,15 +62,14 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 	setInterval(function(){
 		draw();
 		update();
-	}, 33);
+	}, FPS);
 
 	setInterval(function(){
-		scene.addEnemy(new Enemy());
+		scene.addEnemy( enemy.create(WIDTH, (Math.random() * HEIGHT)+ 1) );
 	}, 1000);
 
 
 	function draw() {
-		context.clearRect(0,0, WIDTH,HEIGHT);
 
 		context.drawImage(resources.images.mainbackground, 0,0);
 
@@ -110,6 +90,7 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 			
 			if(detectColision(player, enemy)) {
 				player.life -= 1;
+				if(player.speed > 3) player.speed -= 1;
 				enemy.live = false;
 				if (player.life <= 0) {
 					location.reload();	
@@ -118,29 +99,17 @@ define('shooter', ['resources', 'controle', 'player', 'scene'], function(resourc
 
 			scene.getBullets().forEach(function(bullet) {
 				if(detectColision(bullet,enemy)) {
-					enemy.live = bullet.live = false;
+					//enemy.live = bullet.live = false;
+					bullet.live = false;
+					enemy.receiveDamage(bullet.damage);
 					resources.sounds.explosion.currentTime = 0;
 					resources.sounds.explosion.play();
-					if(player.speed <= 15)
-						player.speed += 3;
+					player.score += enemy.score;
+					if(player.speed <= 5)
+						player.speed += 1;
 				}
 			});
-
 		});		
-
-
-   //      enemies.forEach(function(enemy) {
-        	// enemy.update();
-			// bullets.forEach(function(bullet) {
-			// 	if(detectColision(bullet, enemy)) {
-			// 		enemy.live = bullet.live = false;
-			// 		resources.sounds.explosion.currentTime = 0;
-			// 		resources.sounds.explosion.play();
-			// 		if(player.speed <= 15)
-			// 			player.speed += 3;
-			// 	}
-   //      	});        	
-   //      });
 
         scene.update();
 

@@ -21,8 +21,10 @@ define('scene', [], function() {
         	bullet.draw(context);
         });        
 
-        context.font = "30px Arial";
-		// context.fillText('Scenes : ' + scene.getElements().length ,10,30);
+        context.font = "20px Arial";
+		context.fillStyle = "#fff";
+		context.fillText('Score: ' + player.score, 5, 60);
+		
 		// context.fillText('Bullets : ' + scene.getBullets().length ,170,30); 
 
 		var positionStart = 20;

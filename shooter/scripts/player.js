@@ -1,15 +1,16 @@
 define('player', ['resources', 'scene', 'bullet'], function(resources, scene, bullet) {
 	
 	return {
+		score: 0,
 		x:40,
 		y:30,
 		size:20,
-		speed:5,
+		speed:2,
 		color:'#000',
-		life: 8,
+		life: 3,
 		height: 69,
 		width: 116,
-		shotInterval: 300,
+		shotInterval: 1000,
 		live: true,
 
 		shoot:function() {
@@ -43,7 +44,7 @@ define('player', ['resources', 'scene', 'bullet'], function(resources, scene, bu
 				this.x -= this.speed;
 			}
 			if(controle.isPressed('shoot')) {
- 				if(this.shotInterval >= 5	){
+ 				if(this.shotInterval >= 10	){
 					this.shoot();
 					this.shotInterval = 0;
  				}

@@ -7,7 +7,7 @@ define('bullet', ['resources'], function(resources) {
 		this.height = 16;
 		this.width = 46;
 		this.live = true;
-
+		this.damage = 50;
 		this.draw = function(context) {
 			// drawColision("green", this.x, this.y, this.width, this.height);
 			context.drawImage(resources.images.bullet,this.x,this.y);
