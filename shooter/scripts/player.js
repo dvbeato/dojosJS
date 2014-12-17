@@ -1,34 +1,36 @@
-define('player', ['resources', 'scene', 'bullet'], function(resources, scene, bullet) {
+define('player', ['resources', 'scene', 'bullet', 'sprite'], function(resources, scene, bullet, sprite) {
 	
-	return {
-		score: 0,
-		x:40,
-		y:30,
-		size:20,
-		speed:2,
-		color:'#000',
-		life: 3,
-		height: 69,
-		width: 116,
-		shotInterval: 1000,
-		live: true,
+	function Player() {
+		this.score = 0;
+		this.x = 40;
+		this.y = 30;
+		this.size = 20;
+		this.speed = 2;
+		this.color = '#000';
+		this.life = 3;
+		this.height = 69;
+		this.width = 116;
+		this.spriteWidth = 920;
+		this.frames = 8;
+		this.shotInterval = 1000;
+		this.live = true;
+		this.sprite = new sprite.Sprite(resources.images.playerSprite, this.spriteWidth, this.height, this.frames, 70);
 
-		shoot:function() {
+		this.shoot = function() {
 			var offsetX = 40;
 			var offSetY = 10;
 			var bulletX = this.x + this.width - offsetX;
 			var bulletY = (this.y + (this.height/2) - offSetY);
-			// $(window).trigger("player.shoot", new Bullet(this.x, this.y))
 			scene.addBullet(bullet.create(bulletX, bulletY));
 			resources.sounds.bullet.currentTime = 0;
 			resources.sounds.bullet.play();
-		},
+		};
 
-		draw:function(context) {
-			context.drawImage(resources.images.player,this.x,this.y);
-		},
+		this.draw = function(context) {
+			this.sprite.draw(context,this.x, this.y);	
+		};
 
-		move:function(controle) {
+		this.move = function(controle) {
 			this.shotInterval += 1;
 
 			if(controle.isPressed('up')){
@@ -49,9 +51,12 @@ define('player', ['resources', 'scene', 'bullet'], function(resources, scene, bu
 					this.shotInterval = 0;
  				}
 			}
-		},
-		update: function(){
+		};
+
+		this.update = function(){
 
 		}
 	}
+
+	return new Player();
 });

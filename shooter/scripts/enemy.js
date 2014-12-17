@@ -1,4 +1,4 @@
-define('enemy', ['resources'], function(resources) {
+define('enemy', ['resources', 'sprite'], function(resources, sprite) {
 
 	function Enemy(x, y) {
 
@@ -10,8 +10,11 @@ define('enemy', ['resources'], function(resources) {
 		this.live = true;
 		this.height = 60;
 		this.width = 46;
+		this.spriteWidth = 376;
+		this.frames = 8;
 		this.speed = 5;
 		this.life = life;
+		this.sprite = new sprite.Sprite(resources.images.enemySprite, this.spriteWidth, this.height, this.frames, 70);
 
 		this.draw = function(context) {
 			// drawColision("red", this.x, this.y, this.width, this.height);			
@@ -35,7 +38,8 @@ define('enemy', ['resources'], function(resources) {
 			};
 
 			drawLife(context, params);
-			context.drawImage(resources.images.enemy,this.x,this.y);
+			// context.drawImage(resources.images.enemy,this.x,this.y);
+			this.sprite.draw(context, this.x, this.y);
 		}
 
 		this.receiveDamage = function(damage) {

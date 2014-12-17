@@ -3,6 +3,12 @@ define('resources', [], function() {
 	var playerImg = new Image;
 	playerImg.src = 'images/player.png';
 	
+	var playerSprite = new Image;
+	playerSprite.src = 'images/shipAnimation.png';
+
+	var enemySprite = new Image;
+	enemySprite.src = 'images/mineAnimation.png';
+
 	var bulletImg = new Image;
 	bulletImg.src = 'images/laser.png';
 
@@ -27,7 +33,9 @@ define('resources', [], function() {
 	return {
 		images: {
 			enemy    :enemyImg,
+			enemySprite: enemySprite,
 			player   :playerImg,
+			playerSprite : playerSprite,
 			bullet   :bulletImg,
 			bgLayer1 :bgLayer1Img,
 			bgLayer2 :bgLayer2Img,
